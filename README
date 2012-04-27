@@ -1,7 +1,10 @@
 ------------------------------------------------------------------------
-Sample codes of Monte Carlo Simulations
+Sample codes of Monte Carlo (MC) Simulations
 ------------------------------------------------------------------------
 
 ising_sw:
-  Monte Calro simulation with cluster algorithm (Swendsen-Wang)
+  Sample of Swendsen-Wang algorithm for 2D Ising Model
+
+heisenberg_sw:
+  Sample of Wolff-Swendsen-Wang algorithm for 2D Heisenberg Model
 ------------------------------------------------------------------------
