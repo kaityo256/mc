@@ -135,6 +135,23 @@ get_wolff_clustersize(void){
   return static_cast<double>(csize)/static_cast<double>(L*L);
 }
 //----------------------------------------------------------------------
+static int px[L*L];
+static int py[L*L];
+//----------------------------------------------------------------------
+void
+wolff_add(const double prob, const int s, int &pp, int ix, int iy){
+  if(ix <0)ix += L;
+  if(iy <0)iy += L;
+  if(ix >=L)ix -= L;
+  if(iy >=L)iy -= L;
+  if(mark[ix][iy])return;
+  if (spin[ix][iy] == s) return;
+  if (myrand() > prob) return;
+  mark[ix][iy] = true; 
+  pp++;px[pp] = ix; py[pp] = iy; 
+  spin[ix][iy] = -spin[ix][iy]; 
+}
+//----------------------------------------------------------------------
 void
 wolff_flip(double beta){
   const double prob = 1.0 - exp(-2.0*beta);
@@ -143,35 +160,21 @@ wolff_flip(double beta){
       mark[i][j] = false;
     }
   }
-  static int px[L*L];
-  static int py[L*L];
   int pp = -1;
   int ix = static_cast<int>(myrand()*L);
   int iy = static_cast<int>(myrand()*L);
   mark[ix][iy] = true;
   spin[ix][iy] = - spin[ix][iy];
   const int s = spin[ix][iy];
-  pp++;px[pp] = ix+1; py[pp] = iy; 
-  pp++;px[pp] = ix-1; py[pp] = iy; 
-  pp++;px[pp] = ix; py[pp] = iy+1; 
-  pp++;px[pp] = ix; py[pp] = iy-1; 
+  pp++;px[pp] = ix; py[pp] = iy; 
   while(pp != -1){
     ix = px[pp]; 
     iy = py[pp]; 
     pp--;
-    if(ix <0)ix += L;
-    if(iy <0)iy += L;
-    if(ix >=L)ix -= L;
-    if(iy >=L)iy -= L;
-    if (spin[ix][iy] == s) continue;
-    if (mark[ix][iy]) continue; 
-    if (myrand() > prob) continue;
-    mark[ix][iy] = true; 
-    spin[ix][iy] = -spin[ix][iy]; 
-    pp++;px[pp] = ix+1; py[pp] = iy; 
-    pp++;px[pp] = ix-1; py[pp] = iy; 
-    pp++;px[pp] = ix; py[pp] = iy+1; 
-    pp++;px[pp] = ix; py[pp] = iy-1; 
+    wolff_add(prob, s,pp,ix+1,iy);
+    wolff_add(prob, s,pp,ix-1,iy);
+    wolff_add(prob, s,pp,ix,iy+1);
+    wolff_add(prob, s,pp,ix,iy+1);
   }
 }
 //----------------------------------------------------------------------

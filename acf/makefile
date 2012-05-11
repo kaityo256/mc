@@ -1,5 +1,5 @@
-EXE: single sw wolff
-all: $(EXE)
+EXE=single sw wolff
+all:$(EXE)
 
 CC=g++
 CPPFLAGS=-O3
