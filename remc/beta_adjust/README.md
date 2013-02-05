@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------
-Adjustment of a set of temperatures for Replica Exchange MC
+#Adjustment of a set of temperatures for Replica Exchange MC
 ------------------------------------------------------------------------
-Summary:
+##Summary
 
 Sample source code of Replica Exchange Monte Carlo (REMC) with 
 adjustment of a set of temperatures.
@@ -11,23 +11,24 @@ should be geometric progression in order to achieve
 uniform exchange rates between adjacent temperatures.
 
 -----------------------------------------------------------------------
-Usage:
+#Usage
 
-$ make clean
-$ make
+    $ make clean
+    $ make
 
 -----------------------------------------------------------------------
-Files:
+#Files
 
-exmc.rb
+-exmc.rb
   A source file
 
-beta.dat  
+-beta.dat  
   Tempeartures obtained by REMC
 
-beta.plt
+-beta.plt
   Plot file for gnuplot
 
-beta.png
+-beta.png
   Plot image by gnuplot
+
 ------------------------------------------------------------------------
