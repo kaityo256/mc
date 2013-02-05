@@ -17,16 +17,16 @@ with higher energy has higher temperature.
 -----------------------------------------------------------------------
 ##Files
 
--exmc.rb
+*exmc.rb
   A source file
 
--index.dat  
+*index.dat  
   Indeces of replicas. 
 
--index.plt
+*index.plt
   Plot file for gnuplot
 
--index.png
+*index.png
   Plot image by gnuplot
 
 ------------------------------------------------------------------------

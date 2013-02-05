@@ -19,16 +19,16 @@ uniform exchange rates between adjacent temperatures.
 -----------------------------------------------------------------------
 #Files
 
--exmc.rb
+*exmc.rb
   A source file
 
--beta.dat  
+*beta.dat  
   Tempeartures obtained by REMC
 
--beta.plt
+*beta.plt
   Plot file for gnuplot
 
--beta.png
+*beta.png
   Plot image by gnuplot
 
 ------------------------------------------------------------------------
