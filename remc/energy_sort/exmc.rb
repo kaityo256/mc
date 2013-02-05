@@ -49,10 +49,7 @@ LOOP.times{|j|
   index.sort!{|i1,i2| i1[1] <=> i2[1]}
   print "#{j} "
   N.times{|i|
-    #print "(#{index[i][0]},#{index[i][1]}) "
     print "#{index[i][0]} "
   }
   puts
-
-
 }
