@@ -6,7 +6,7 @@
 Sample source code of Replica Exchange Monte Carlo (REMC) with 
 adjustment of a set of temperatures.
 If the specific heat of the system is constant, i.e.,
-E(\beta) \sim 1/\beta, then the temperatures of the replicas
+E(beta) \sim 1/beta, then the temperatures of the replicas
 should be geometric progression in order to achieve
 uniform exchange rates between adjacent temperatures.
 
@@ -19,16 +19,16 @@ uniform exchange rates between adjacent temperatures.
 -----------------------------------------------------------------------
 #Files
 
-*exmc.rb
+* [exmc.rb](exmc.rb)    
   A source file
 
-*beta.dat  
+* [beta.dat](beta.dat)    
   Tempeartures obtained by REMC
 
-*beta.plt
+* [beta.plt](beta.plt)    
   Plot file for gnuplot
 
-*beta.png
+* [beta.png](beta.png)    
   Plot image by gnuplot
 
 ------------------------------------------------------------------------
