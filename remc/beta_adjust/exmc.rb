@@ -47,7 +47,7 @@ def beta_onestep(b,bi,r)
   c = c / (N-1).to_f
   b2 = b.clone
   (N-1).times{|i|
-    b[i+1] = b2[i] + (b2[i+1] - b2[i])*a[i+1]/c
+    b[i+1] = b[i] + (b2[i+1] - b2[i])*a[i+1]/c
   }
 end
 
