@@ -6,7 +6,7 @@ class Replica
   end
 end
 
-LOOP = 1000
+LOOP = 100
 def mcloop(b, bi,r,a)
 LOOP.times{|j|
   if j%2 == 0
@@ -56,7 +56,7 @@ bi = Array.new(N){|i| i}
 r = Array.new(N){Replica.new()}
 r.shuffle!
 
-100.times{|i|
+1000.times{|i|
   beta_onestep(b,bi,r)
 }
 N.times{|i|
