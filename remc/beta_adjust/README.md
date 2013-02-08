@@ -10,6 +10,8 @@ E(beta) \sim 1/beta, then the temperatures of the replicas
 should be geometric progression in order to achieve
 uniform exchange rates between adjacent temperatures.
 
+In this sample, the exchante rate is adjusted to be 0.6.
+
 -----------------------------------------------------------------------
 #Usage
 
