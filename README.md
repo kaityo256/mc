@@ -13,6 +13,9 @@ Sample of Wolff-Swendsen-Wang algorithm for 2D Heisenberg Model
 ##[nucleation](nucleation)
 Simple Nucleation
 
+##[potts_correlation](potts_correlation)
+Calculate pair correlation function of Q-state Potts model
+
 ##[remc](remc)
 Sample files for Replica Exchange Monte Carlo
 
