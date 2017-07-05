@@ -1,12 +1,12 @@
 all: single cluster
 CC=g++
-CPPFLAGS=-O3
-.SUFFIXES: .c .cc .h. .o
+CPPFLAGS=-O3 -std=c++11
+.SUFFIXES: .cpp .o
 
-single: main.cc
+single: main.cpp
 	$(CC) $(CPPFLAGS) $< -o $@
 
-cluster: main.cc
+cluster: main.cpp
 	$(CC) $(CPPFLAGS) -DCLUSTER $< -o $@
 
 single.dat: single
