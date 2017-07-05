@@ -189,7 +189,7 @@ domc(void){
       m2 /= static_cast<double>(S_LOOP);
       e_sum /= static_cast<double>(S_LOOP);
       e2_sum /= static_cast<double>(S_LOOP);
-      const double c = (e2_sum - e_sum*e_sum)*beta*beta;
+      const double c = (e2_sum - e_sum*e_sum)*beta*beta*L*L;
       printf("%f %f %f\n",beta,m2,c);
     }
   }
