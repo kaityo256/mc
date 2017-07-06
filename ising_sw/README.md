@@ -37,4 +37,4 @@ magnetization, and specific heat.
 Note that, the default values of thermalization loops (`T_LOOP`)
 and number of average (`S_LOOP`) are insufficient. You should increase the values to obtain results with sufficient accuracy.
 
-Note that, this code is just a sample. I focus on simplicity instead of efficiency. There is room to optimize.
+This code is just a sample. I focus on simplicity instead of efficiency. There is room to optimize.
