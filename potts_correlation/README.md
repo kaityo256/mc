@@ -9,7 +9,7 @@ Sample code to calculate pair correlation function of Q-state Potts model on the
 ## Usage
 
     $ make
-    $ ./potts2d > test.dat
+    $ ./a.out > test.dat
 
 ## Parameters
 

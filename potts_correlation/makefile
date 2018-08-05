@@ -2,8 +2,7 @@
 # Makefile for C/C++ Program
 #------------------------------------------------------
 
-TARGET=potts2d
-
+TARGET=a.out
 LDFLAGS=
 
 #------------------------------------------------------
@@ -24,15 +23,15 @@ LDFLAGS=-lfftw3
 # Definition
 #------------------------------------------------------
 
-.SUFFIXES: .c .cc .h. .o
+.SUFFIXES: .cpp .h. .o
 
 #---
 # Source Files
 #---
 
-SRC=$(shell ls *.cc)
+SRC=$(shell ls *.cpp)
 HED=$(shell ls *.h)
-OBJ=$(SRC:.cc=.o)
+OBJ=$(SRC:.cpp=.o)
 
 #------------------------------------------------------
 # rules
@@ -42,7 +41,7 @@ all: $(TARGET)
 $(TARGET): $(OBJ)
 	$(CC) $(CPPFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJ)
 
-.cc.o:
+.cpp.o:
 	$(CC) $(CPPFLAGS) -c $< 
 
 .PHONY: clean dep
