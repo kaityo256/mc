@@ -1,27 +1,30 @@
-//----------------------------------------------------------------------
-//          Copyright H. Watanabe 2015.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//     http://www.boost.org/LICENSE_1_0.txt)
-//----------------------------------------------------------------------
 #include <iostream>
 #include <cmath>
 #include <vector>
 #include <random>
 #include <fftw3.h>
 #include <algorithm>
+#include <fstream>
+#include "cmdline.h"
 
-const int LX = 128;
-const int LY = 128;
-const int N = LX * LY;
-const int Q = 3;
+int LX = 128;
+int LY = 128;
+int N = LX * LY;
+int Q = 3;
 int T_LOOP = 1000;
-int O_LOOP = 1000;
+int O_LOOP = 10000;
 std::vector<int> spin(N), cluster(N), newspin(N);
 std::vector<double> sofk(N);
 
-std::mt19937 mt(1);
+std::mt19937_64 mt(1);
 std::uniform_real_distribution<double> ud(0.0, 1.0);
+
+void resize(const int size) {
+  spin.resize(size);
+  cluster.resize(size);
+  newspin.resize(size);
+  sofk.resize(size);
+}
 
 int get_cluster_number(int index) {
   int i = index;
@@ -87,7 +90,21 @@ void calc_correlation(fftw_complex *in, fftw_complex *out, fftw_plan &p) {
   }
 }
 
-int main(void) {
+int main(int argc, char **argv) {
+  cmdline::parser a;
+  a.add<int>("size", 'L', "system size", false, 64, cmdline::range(16, 999));
+  a.add<int>("q", 'Q', "number of states", false, 2, cmdline::range(2, 9));
+  a.parse_check(argc, argv);
+  Q = a.get<int>("q");
+  const int L = a.get<int>("size");
+  LX = L;
+  LY = L;
+  N = LX * LY;
+  resize(N);
+  char filename[256];
+  sprintf(filename, "Q%d_L%03d.dat", Q, L);
+  std::cout << filename << std::endl;
+  std::ofstream ofs(filename);
   const double bc = log(1.0 + sqrt(Q));
   fftw_complex *in = NULL;
   fftw_complex *out = NULL;
@@ -116,9 +133,10 @@ int main(void) {
   }
   p = fftw_plan_dft_2d(LX, LY, in, out, FFTW_BACKWARD, FFTW_ESTIMATE);
   fftw_execute(p);
-  std::cout << "# Q=" << Q << std::endl;
-  std::cout << "# Thermalization Loop:" << T_LOOP << std::endl;
-  std::cout << "# Observation Loop:" << O_LOOP << std::endl;
+  ofs << "# Q=" << Q << std::endl;
+  ofs << "# System Size = " << L << std::endl;
+  ofs << "# Thermalization Loop = " << T_LOOP << std::endl;
+  ofs << "# Observation Loop = " << O_LOOP << std::endl;
   const int l = std::min(LX, LY) / 2;
   for (int i = 0; i < l; i++) {
     for (int j = 0; j < l; j++) {
@@ -126,7 +144,7 @@ int main(void) {
       const double re = out[index][0];
       const double dx = static_cast<double>(i);
       const double dy = static_cast<double>(j);
-      std::cout << sqrt(dx * dx + dy * dy) << re / static_cast<double>(N) * (Q - 1) << std::endl;
+      ofs << sqrt(dx * dx + dy * dy) << " " << re / static_cast<double>(N) * (Q - 1) << std::endl;
     }
   }
   fftw_free(in);
