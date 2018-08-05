@@ -21,19 +21,22 @@ Heisenberg model on a square lattice.
 
   Plot file for gnuplot
 
-- magnetization.png
-
-  Squared Magnetization vs. Temperature
-
-- heatcapacity.png
-
-  Heat Capacity vs. Temperature
-
 
 # Usage 
 
     $ make clean
     $ make graph
+
+
+You will get the following graphs (gnuplot required).
+
+* Magnetization
+
+![fig/magnetization.png](fig/magnetization.png)
+
+* Heat Capacity
+
+![fig/heatcapacity.png](fig/heatcapacity.png)
 
 
 The source code contains both single-flip and cluster algorithms.
