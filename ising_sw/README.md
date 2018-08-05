@@ -1,22 +1,31 @@
-# Monte Calro simulation with cluster algorithm (Swendsen-Wang)
+Monte Calro simulation with cluster algorithm (Swendsen-Wang)
+===
 
-## Summary:
+# Summary
 
 Sample source code of Monte Calro simulation with cluster updates.
 Swendsen-Wang method is implemented for two-dimensional Ising model
 on a square lattice.
 
-Files:
-- main.cc
-    - A source file
-- single.dat, cluster.dat
-    - Simulation results
-- plot.plt
-    - Plot file for gnuplot
-- plot.png
-    - Plot image by gnuplot
+#Files
 
-## Usage
+- main.cpp
+
+   source file
+
+- single.dat, cluster.dat
+
+  Simulation results
+
+- plot.plt
+
+  Plot file for gnuplot
+
+- plot.png
+
+  Plot image by gnuplot
+
+# Usage
 
     $ make graph
 
@@ -24,7 +33,7 @@ The above command will give you the following graph.
 
 ![plot.png](plot.png)
 
-## Details
+# Details
 
 The source code contains both single-flip and cluster algorithms.
 `make` produces two executables, single and cluster which are

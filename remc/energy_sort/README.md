@@ -1,21 +1,19 @@
-------------------------------------------------------------------------
-#Adjustment of a set of temperatures for Replica Exchange MC
-------------------------------------------------------------------------
-##Summary
+Adjustment of a set of temperatures for Replica Exchange MC
+===
+
+# Summary
 
 Sample source code of Replica Exchange Monte Carlo (REMC).
 Each replica has fixed energy. After several steps of REMC,
 the replicas are sorted by their energy, i.e, the replica
 with higher energy has higher temperature.
 
------------------------------------------------------------------------
-##Usage
+# Usage
 
    $ make clean
    $ make
 
------------------------------------------------------------------------
-##Files
+# Files
 
 * [exmc.rb](exmc.rb)    
   A source file
@@ -28,5 +26,3 @@ with higher energy has higher temperature.
 
 * [index.png](index.png)    
   Plot image by gnuplot
-
-------------------------------------------------------------------------

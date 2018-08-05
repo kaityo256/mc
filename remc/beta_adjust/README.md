@@ -1,7 +1,7 @@
-------------------------------------------------------------------------
-#Adjustment of a set of temperatures for Replica Exchange MC
-------------------------------------------------------------------------
-##Summary
+Adjustment of a set of temperatures for Replica Exchange MC
+===
+
+# Summary
 
 Sample source code of Replica Exchange Monte Carlo (REMC) with 
 adjustment of a set of temperatures.
@@ -12,14 +12,12 @@ uniform exchange rates between adjacent temperatures.
 
 In this sample, the exchante rate is adjusted to be 0.6.
 
------------------------------------------------------------------------
-#Usage
+# Usage
 
     $ make clean
     $ make
 
------------------------------------------------------------------------
-#Files
+# Files
 
 * [exmc.rb](exmc.rb)    
   A source file
@@ -32,5 +30,3 @@ In this sample, the exchante rate is adjusted to be 0.6.
 
 * [beta.png](beta.png)    
   Plot image by gnuplot
-
-------------------------------------------------------------------------
