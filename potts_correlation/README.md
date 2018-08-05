@@ -1,17 +1,16 @@
-------------------------------------------------------------------------
-# Calculate pair correlation function of Q-state Potts model
-------------------------------------------------------------------------
+Calculate pair correlation function of Q-state Potts model
+===
 
-## Summary
+# Summary
 
 Sample code to calculate pair correlation function of Q-state Potts model on the square lattice. You need FFTW3 library to build this.
 
-## Usage
+# Usage
 
     $ make
     $ ./a.out > test.dat
 
-## Parameters
+# Parameters
 
 - Q: Number of states (when Q=2, it is called Ising model)
 - LX, LY: System Size
