@@ -2,6 +2,7 @@
 #include <array>
 #include <chrono>
 #include <cmath>
+#include <iomanip>
 #include <iostream>
 #include <numeric>
 #include <random>
@@ -9,19 +10,12 @@
 
 const int L = 64;    // System Size
 const int N = L * L; // Number of spins
-double e_table[5];
+double e_table[5];   // Energy Table
 
-std::vector<int> spin(N), cluster(N), flip(N);
-std::vector<std::array<int, 4>> neighbor(N);
+std::vector<int> spin(N); //Spins
 
 std::mt19937 mt(1);
 std::uniform_real_distribution<double> ud(0.0, 1.0);
-
-int pos2index(int ix, int iy) {
-  ix = (ix + L) % L;
-  iy = (iy + L) % L;
-  return ix + iy * L;
-}
 
 int pos2index_mod(int ix, int iy) {
   ix = (ix + L) % L;
@@ -37,6 +31,26 @@ int pos2index_if(int ix, int iy) {
   return ix + iy * L;
 }
 
+// For Neighbor list
+std::vector<std::array<int, 4>> neighbor(N);
+
+void init_neighbors() {
+  for (int i = 0; i < N; i++) {
+    int ix = i % L;
+    int iy = i / L;
+    neighbor[i][0] = pos2index_mod(ix + 1, iy);
+    neighbor[i][1] = pos2index_mod(ix - 1, iy);
+    neighbor[i][2] = pos2index_mod(ix, iy + 1);
+    neighbor[i][3] = pos2index_mod(ix, iy - 1);
+  }
+}
+
+// Single Flip Implementation (Metropolis Algorithm)
+
+/*
+  Adjust PBC by if
+  Calculate Energy Explicitly
+*/
 void single_flip_calc_if(double beta) {
   for (int i = 0; i < N; i++) {
     int ix = i % L;
@@ -53,6 +67,10 @@ void single_flip_calc_if(double beta) {
   }
 }
 
+/*
+  Adjust PBC by mod
+  Calculate Energy Explicitly
+*/
 void single_flip_calc_mod(double beta) {
   for (int i = 0; i < N; i++) {
     int ix = i % L;
@@ -69,6 +87,10 @@ void single_flip_calc_mod(double beta) {
   }
 }
 
+/*
+  Adjust PBC by mod
+  Use a table for Energy
+*/
 void single_flip_table_mod(double beta) {
   for (int i = 0; i < N; i++) {
     int ix = i % L;
@@ -85,6 +107,11 @@ void single_flip_table_mod(double beta) {
   }
 }
 
+/*
+  Adjust PBC by mod
+  Use a table for Energy
+  omit (if ns < 0)
+*/
 void single_flip_table_mod_tableonly(double beta) {
   for (int i = 0; i < N; i++) {
     int ix = i % L;
@@ -101,6 +128,10 @@ void single_flip_table_mod_tableonly(double beta) {
   }
 }
 
+/*
+  Use neighbor list
+  Use a table for Energy
+*/
 void single_flip_table_list(double beta) {
   for (int i = 0; i < N; i++) {
     int ns = 0;
@@ -117,10 +148,13 @@ void single_flip_table_list(double beta) {
 
 void single_flip(double beta) {
   single_flip_table_list(beta);
+  //single_flip_table_mod_tableonly(beta);
 }
 
-double
-magnetization_square(void) {
+/*
+Order Parameter (m^2)
+*/
+double magnetization_square(void) {
   double m = std::accumulate(spin.begin(), spin.end(), 0.0);
   m /= static_cast<double>(N);
   return m * m;
@@ -159,18 +193,6 @@ void domc(void) {
   }
 }
 
-void init_neighbors() {
-  for (int iy = 0; iy < L; iy++) {
-    for (int ix = 0; ix < L; ix++) {
-      int i = pos2index(ix, iy);
-      neighbor[i][0] = pos2index(ix + 1, iy);
-      neighbor[i][1] = pos2index(ix - 1, iy);
-      neighbor[i][2] = pos2index(ix, iy + 1);
-      neighbor[i][3] = pos2index(ix, iy - 1);
-    }
-  }
-}
-
 /*
   Check the update speed at the critical point beta_c = log(1+sqrt(2))/2
  */
@@ -179,13 +201,14 @@ void speed_test(const char *name, void (*single_flip)(double)) {
   make_table(beta_c);
   std::fill(spin.begin(), spin.end(), 1);
   mt.seed(1);
-  const int LOOP = 10000;
+  const int LOOP = 100000;
   const auto s = std::chrono::system_clock::now();
   for (int i = 0; i < LOOP; i++) {
     single_flip(beta_c);
   }
   const auto e = std::chrono::system_clock::now();
   const auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count();
+  std::cout << std::setprecision(4);
   std::cout << name << "\t" << magnetization_square() << "\t" << elapsed << "[msec]" << std::endl;
 }
 
