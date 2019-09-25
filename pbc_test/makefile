@@ -1,7 +1,7 @@
 all: speed.out mc.out
 
 CC=g++
-CPPFLAGS=-O3 -std=c++11
+CPPFLAGS=-O3 -std=c++11 -march=native
 
 speed.out: main.cpp
 	$(CC) $(CPPFLAGS) $< -o $@
