@@ -4,6 +4,8 @@
 
 I investigated the efficient implementation of the periodic boundary condition.
 
+[Qiitaにも記事を書きました](https://qiita.com/kaityo256/items/cff8693a38fc084626ad).
+
 ## Benchmark results
 
 ### `calc + if` (Baseline)
