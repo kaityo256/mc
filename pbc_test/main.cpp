@@ -146,9 +146,88 @@ void single_flip_table_list(double beta) {
   }
 }
 
+/*
+ Calculate bulk without adjusting PBC
+*/
+
+void single_flip_bulk(double beta) {
+
+  // Bulk
+  for (int iy = 1; iy < L - 1; iy++) {
+    for (int ix = 1; ix < L - 1; ix++) {
+      int i = ix + iy * L;
+      int ns = 0;
+      ns += spin[i + 1];
+      ns += spin[i - 1];
+      ns += spin[i + L];
+      ns += spin[i - L];
+      ns *= spin[i];
+      if (ns < 0 || e_table[ns / 2 + 2] > ud(mt)) {
+        spin[i] = -spin[i];
+      }
+    }
+  }
+
+  // site_i = (j, 0)
+  for (int j = 0; j < L; j++) {
+    int i = j;
+    int ns = 0;
+    ns += spin[neighbor[i][0]];
+    ns += spin[neighbor[i][1]];
+    ns += spin[neighbor[i][2]];
+    ns += spin[neighbor[i][3]];
+    ns *= spin[i];
+    if (ns < 0 || e_table[ns / 2 + 2] > ud(mt)) {
+      spin[i] = -spin[i];
+    }
+  }
+
+  // site_i = (j, L-1)
+  for (int j = 0; j < L; j++) {
+    int i = j + (L - 1) * L;
+    int ns = 0;
+    ns += spin[neighbor[i][0]];
+    ns += spin[neighbor[i][1]];
+    ns += spin[neighbor[i][2]];
+    ns += spin[neighbor[i][3]];
+    ns *= spin[i];
+    if (ns < 0 || e_table[ns / 2 + 2] > ud(mt)) {
+      spin[i] = -spin[i];
+    }
+  }
+  // site_i = (0, j)
+  for (int j = 1; j < L - 1; j++) {
+    int i = j * L;
+    int ns = 0;
+    ns += spin[neighbor[i][0]];
+    ns += spin[neighbor[i][1]];
+    ns += spin[neighbor[i][2]];
+    ns += spin[neighbor[i][3]];
+    ns *= spin[i];
+    if (ns < 0 || e_table[ns / 2 + 2] > ud(mt)) {
+      spin[i] = -spin[i];
+    }
+  }
+
+  // site_i = (L-1, j)
+  for (int j = 1; j < L - 1; j++) {
+    int i = L - 1 + j * L;
+    int ns = 0;
+    ns += spin[neighbor[i][0]];
+    ns += spin[neighbor[i][1]];
+    ns += spin[neighbor[i][2]];
+    ns += spin[neighbor[i][3]];
+    ns *= spin[i];
+    if (ns < 0 || e_table[ns / 2 + 2] > ud(mt)) {
+      spin[i] = -spin[i];
+    }
+  }
+}
+
 void single_flip(double beta) {
-  single_flip_table_list(beta);
+  //single_flip_table_list(beta);
   //single_flip_table_mod_tableonly(beta);
+  single_flip_bulk(beta);
 }
 
 /*
@@ -222,5 +301,6 @@ int main(void) {
   speed_test("table     + mod ", single_flip_table_mod);
   speed_test("tableonly + mod ", single_flip_table_mod_tableonly);
   speed_test("table     + list", single_flip_table_list);
+  speed_test("bulk + border   ", single_flip_bulk);
 #endif
 }
