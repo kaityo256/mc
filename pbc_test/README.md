@@ -8,7 +8,7 @@ I investigated the efficient implementation of the periodic boundary condition.
 
 ### `calc + if` (Baseline)
 
-Consider the ferromagnetic Ising model on the LxL square lattice. We adopt the Metropolis single-spin udpate algorithm. The program would be something like as follows.
+Consider the ferromagnetic Ising model on the LxL square lattice. We adopt the Metropolis single-spin update algorithm. The program would be something like as follows.
 
 ```cpp
   for (int i = 0; i < N; i++) {
@@ -24,9 +24,9 @@ Consider the ferromagnetic Ising model on the LxL square lattice. We adopt the M
   }
 ```
 
-Since the above program does not care the boundary condition, it touches the memory out of boundary.
+Since the above program does not take care of the boundary condition, it touches the memory out of boundary.
 
-If we adopt the perodic boundary condition, we have to adjust the boundary like as,
+If we adopt the periodic boundary condition, we have to adjust the boundary like as,
 
 ```cpp
   if (ix < 0) ix += L;
@@ -63,7 +63,7 @@ void single_flip_calc_if(double beta) {
 }
 ```
 
-We refer the above program to `calc+if` and adopt it as the baseline. We consider the square system with L=64. We updates 100000 times at the critical point. At some machine, it took 16151 [msec].
+We refer the above program to `calc+if` and adopt it as the baseline. We consider the square system with L=64. We update 100000 times at the critical point. At some machine, it took 16151 [msec].
 
 ### `calc + mod`
 
@@ -93,11 +93,11 @@ void single_flip_calc_mod(double beta) {
 }
 ```
 
-The elapse time becomes 16064[msec]. The efficiency was not improved so much.
+The elapsed time becomes 16064[msec]. The efficiency was not improved so much.
 
 ### `table + mod`
 
-While we calculate `exp` funciton every time, the number of possible energy is limited. So we adopt a table for the energy difference.
+While we calculate `exp` function every time, the number of possible energy is limited. So we adopt a table for the energy difference.
 
 ```cpp
 void make_table(double beta) {
@@ -125,7 +125,7 @@ void single_flip_table_mod(double beta) {
 }
 ```
 
-We have 7488 [msec], we achieves 2x speedup.
+We have 7488 [msec], we achieve 2x speedup.
 
 ### `tableonly + mod`
 
@@ -162,7 +162,7 @@ void init_neighbors() {
 }
 ```
 
-Using the neighborlist, we can implement spin updates as
+Using the neighbor list, we can implement spin updates as
 
 ```cpp
 void single_flip_table_list(double beta) {
@@ -278,12 +278,12 @@ The result was 6595 [msec], which is the fastest.
 * Red Hat Enterprise Linux Server release 7.4 (Maipo)
 
 ```txt
-calc      + if  	0.3537	16151[msec]
-calc      + mod 	0.3537	16064[msec]
-table     + mod 	0.3537	7488[msec]
-tableonly + mod 	0.2853	8009[msec]
-table     + list	0.3537	6815[msec]
-bulk + border   	0.5839	6595[msec]
+calc      + if      0.3537    16151[msec]
+calc      + mod     0.3537    16064[msec]
+table     + mod     0.3537    7488[msec]
+tableonly + mod     0.2853    8009[msec]
+table     + list    0.3537    6815[msec]
+bulk + border       0.5839    6595[msec]
 ```
 
 ### Linux + Intel Compiler
@@ -294,12 +294,12 @@ bulk + border   	0.5839	6595[msec]
 * Red Hat Enterprise Linux Server release 7.4 (Maipo)
 
 ```txt
-calc      + if  	0.3537	33342[msec]
-calc      + mod 	0.3537	32431[msec]
-table     + mod 	0.3537	6152[msec]
-tableonly + mod 	0.2853	6458[msec]
-table     + list	0.3537	30158[msec]
-bulk + border   	0.5839	29927[msec]
+calc      + if      0.3537    33342[msec]
+calc      + mod     0.3537    32431[msec]
+table     + mod     0.3537    6152[msec]
+tableonly + mod     0.2853    6458[msec]
+table     + list    0.3537    30158[msec]
+bulk + border       0.5839    29927[msec]
 ```
 
 ### Mac + Clang
@@ -310,10 +310,10 @@ bulk + border   	0.5839	29927[msec]
 * `-O3 -std=c++11 -march=native`
 
 ```txt
-calc      + if  	0.3537	8778[msec]
-calc      + mod 	0.3537	7553[msec]
-table     + mod 	0.3537	5622[msec]
-tableonly + mod 	0.2853	5980[msec]
-table     + list	0.3537	5574[msec]
-bulk + border   	0.5839	5398[msec]
+calc      + if      0.3537    8778[msec]
+calc      + mod     0.3537    7553[msec]
+table     + mod     0.3537    5622[msec]
+tableonly + mod     0.2853    5980[msec]
+table     + list    0.3537    5574[msec]
+bulk + border       0.5839    5398[msec]
 ```
