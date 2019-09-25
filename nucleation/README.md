@@ -1,7 +1,6 @@
-Simple Nucleation 
-===
+# Simple Nucleation 
 
-# Summary
+## Summary
 
 Sample source code of Monte Carlo simulation for a random walk in
 a potential, which simulates the nucleation of a droplet in
@@ -15,14 +14,12 @@ where $x$ is a radius of a droplet.
 First passage time (nucleation time) is calculated as a function
 of inverse temperature.
 
-
-# Usage
+## Usage
 
     $ make clean
     $ make
 
-
-# Files
+## Files
 
 - nucleation.rb
 
@@ -39,3 +36,7 @@ of inverse temperature.
 - nucleation.png
 
   Plot image by gnuplot
+
+## Results
+
+![figure](nucleation.png)
