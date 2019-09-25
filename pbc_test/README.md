@@ -2,7 +2,7 @@
 
 ## Summary
 
-I want to check the efficient implementation of the periodic boundary condition (PBC).
+I investigated the efficient implementation of the periodic boundary condition.
 
 ## Benchmark results
 
