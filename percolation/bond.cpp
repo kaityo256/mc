@@ -79,7 +79,7 @@ double percolation_probability(void) {
 }
 
 void mc(double p) {
-  const int observe_loop = 100;
+  const int observe_loop = 1000;
   std::mt19937 mt;
   double cp = 0;
   double pp = 0.0;
