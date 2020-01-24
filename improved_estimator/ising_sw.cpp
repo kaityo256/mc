@@ -2,6 +2,7 @@
 #include <array>
 #include <iostream>
 #include <random>
+#include <sdouble.hpp>
 
 const int L = 32;
 const int N = L * L;
