@@ -55,6 +55,19 @@ double magnetization(void) {
   return m * m;
 }
 
+double magnetization_ie(void) {
+  std::vector<int> nc(N, 0);
+  for (int i = 0; i < N; i++) {
+    nc[find(i)]++;
+  }
+  double m2 = 0.0;
+  for (int i = 0; i < N; i++) {
+    m2 += (nc[i] * nc[i]);
+  }
+  m2 /= N * N;
+  return m2;
+}
+
 void mc_step(double beta) {
   std::uniform_int_distribution<> ud(0, 1);
   for (int i = 0; i < N; i++) {
@@ -80,14 +93,20 @@ void mc(double t) {
     mc_step(beta);
   }
   double sm2 = 0.0;
+  double sm2_ie = 0.0;
   for (int i = 0; i < ObserveLoop; i++) {
     mc_step(beta);
     double m2 = magnetization();
     sm2 += m2;
+    double m2_ie = magnetization_ie();
+    sm2_ie += m2_ie;
   }
   sm2 /= ObserveLoop;
+  sm2_ie /= ObserveLoop;
   std::cout << t << " ";
-  std::cout << sm2 << std::endl;
+  std::cout << sm2 << " ";
+  std::cout << sm2_ie << " ";
+  std::cout << std::endl;
 }
 
 int main(void) {
