@@ -1,0 +1,3 @@
+[submodule "improved_estimator/sdouble"]
+	path = improved_estimator/sdouble
+	url = https://github.com/kaityo256/sdouble.git
