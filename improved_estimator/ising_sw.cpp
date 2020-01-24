@@ -56,17 +56,26 @@ double magnetization(void) {
   return m * m;
 }
 
-double magnetization_ie(void) {
+void magnetization_ie(double &m2, double &m4, double &u) {
   std::vector<int> nc(N, 0);
   for (int i = 0; i < N; i++) {
     nc[find(i)]++;
   }
-  double m2 = 0.0;
+  m2 = 0.0;
+  m4 = 0.0;
   for (int i = 0; i < N; i++) {
-    m2 += (nc[i] * nc[i]);
+    double nc2_i = nc[i] * nc[i];
+    m2 += nc2_i;
+    m4 += nc2_i * nc2_i;
+    for (int j = i + 1; j < N; j++) {
+      double nc2_j = nc[j] * nc[j];
+      m4 += 6 * nc2_i * nc2_j;
+    }
   }
-  m2 /= N * N;
-  return m2;
+  double n = static_cast<double>(N);
+  m2 /= n * n;
+  m4 /= n * n * n * n;
+  u = m4 / m2 / m2;
 }
 
 void mc_step(double beta) {
@@ -94,17 +103,28 @@ void mc(double t) {
     mc_step(beta);
   }
   stat::sdouble sm2;
+  stat::sdouble sm4;
   stat::sdouble sm2_ie;
+  stat::sdouble sm4_ie;
+  stat::sdouble sU_ie;
   for (int i = 0; i < ObserveLoop; i++) {
     mc_step(beta);
     double m2 = magnetization();
     sm2 << m2;
-    double m2_ie = magnetization_ie();
+    sm4 << m2 * m2;
+    double m2_ie, m4_ie, U_ie;
+    magnetization_ie(m2_ie, m4_ie, U_ie);
     sm2_ie << m2_ie;
+    sm4_ie << m4_ie;
+    sU_ie << U_ie;
   }
   std::cout << t << " ";
   std::cout << sm2 << " ";
   std::cout << sm2_ie << " ";
+  std::cout << sm4 << " ";
+  std::cout << sm4_ie << " ";
+  std::cout << sm4 / sm2 / sm2 << " ";
+  std::cout << sU_ie << " ";
   std::cout << std::endl;
 }
 
