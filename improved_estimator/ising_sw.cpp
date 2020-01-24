@@ -4,7 +4,7 @@
 #include <random>
 #include <sdouble.hpp>
 
-const int L = 32;
+const int L = 64;
 const int N = L * L;
 std::vector<int> spin(N), newspin(N);
 std::vector<std::array<int, 4>> neighbor(N);
@@ -93,17 +93,15 @@ void mc(double t) {
   for (int i = 0; i < ThermalizeLoop; i++) {
     mc_step(beta);
   }
-  double sm2 = 0.0;
-  double sm2_ie = 0.0;
+  stat::sdouble sm2;
+  stat::sdouble sm2_ie;
   for (int i = 0; i < ObserveLoop; i++) {
     mc_step(beta);
     double m2 = magnetization();
-    sm2 += m2;
+    sm2 << m2;
     double m2_ie = magnetization_ie();
-    sm2_ie += m2_ie;
+    sm2_ie << m2_ie;
   }
-  sm2 /= ObserveLoop;
-  sm2_ie /= ObserveLoop;
   std::cout << t << " ";
   std::cout << sm2 << " ";
   std::cout << sm2_ie << " ";

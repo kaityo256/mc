@@ -3,7 +3,7 @@ SRC=$(shell ls *.cpp)
 OBJ=$(SRC:.cpp=.o)
 
 CC=g++
-CPPFLAGS=-O3 -march=native -Wall -Wextra -std=c++11 
+CPPFLAGS=-O3 -march=native -Wall -Wextra -std=c++11  -I./sdouble
 
 -include makefile.opt
 
