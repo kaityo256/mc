@@ -1,4 +1,4 @@
-# Sample codes of Monte Calro (MC) Simulations
+# Sample codes of Monte Carlo (MC) Simulations
 
 ## [acf](acf)
 

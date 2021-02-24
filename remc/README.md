@@ -1,4 +1,4 @@
-# Sample codes of Replica Exchange Monte Calro (REMC) Simulations
+# Sample codes of Replica Exchange Monte Carlo (RE MC) Simulations
 
 ## [beta_adjust](beta_adjust)
 

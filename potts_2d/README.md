@@ -1,4 +1,4 @@
-# Q-State Potts Model with Swendseng-Wang algorithm
+# Q-State Potts Model with Swendsen-Wang algorithm
 
 ## Usage
 
@@ -7,7 +7,7 @@ make
 make run
 ```
 
-## Resutls
+## Results
 
 ![q2.png](q2.png)
 

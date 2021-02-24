@@ -1,8 +1,8 @@
-# Monte Calro simulation with cluster algorithm (Swendsen-Wang)
+# Monte Carlo simulation with cluster algorithm (Swendsen-Wang)
 
 ## Summary
 
-Sample source code of Monte Calro simulation with cluster updates.
+Sample source code of Monte Carlo simulation with cluster updates.
 Swendsen-Wang method is implemented for two-dimensional Ising model
 on a square lattice.
 
@@ -35,7 +35,7 @@ The above command will give you the following graph.
 ## Details
 
 The source code contains both single-flip and cluster algorithms.
-`make` produces two executables, single and cluster which are
+`make` produces two executable files, single and cluster which are
 single-flip and cluster updates, respectively.
 
 `make run` gives you two results, single.dat and cluster.dat.

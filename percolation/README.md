@@ -1,6 +1,6 @@
 # Percolation
 
-Sample programs for Monte Calro simulation of bond- and site-percolation.
+Sample programs for Monte Carlo simulation of bond- and site-percolation.
 
 [日本語による解説](README_ja.md)
 
