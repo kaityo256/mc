@@ -249,7 +249,6 @@ void make_table(double beta) {
 void relaxation(double beta) {
   make_table(beta);
   std::cerr << "beta = " << beta << std::endl;
-  double sm2 = 0.0;
   const int O_LOOP = 1000;
   const int N_SAMPLE = 1000;
   std::vector<double> data(1000, 0.0);
@@ -262,7 +261,9 @@ void relaxation(double beta) {
     }
   }
   for (int i = 0; i < O_LOOP; i++) {
-    std::cout << i << " " << data[i] / N_SAMPLE << std::endl;
+    if (i % 10 == 0) {
+      std::cout << i << " " << data[i] / N_SAMPLE << std::endl;
+    }
   }
 }
 
